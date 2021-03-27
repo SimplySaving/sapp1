@@ -12,10 +12,11 @@ enum Page {
     case tabpage
 }
 
+
 struct beginning: View {
     
     @StateObject var viewRouter: ViewRouter
-    
+    @Environment(\.managedObjectContext) private var viewContext
     var body: some View {
         switch viewRouter.currentPage {
         case .loginpage:

@@ -11,7 +11,9 @@ import CoreData
 
 @main
 struct sappApp: App {
-    
+    let persistenceControllerUser = PersistenceControllerUser.shared
+    // ^ added from  https://blckbirds.com/post/core-data-and-swiftui/
+
     @StateObject var viewRouter = ViewRouter()
     
     let persistentContainer: NSPersistentContainer = {
@@ -27,6 +29,9 @@ struct sappApp: App {
     var body: some Scene {
         WindowGroup {
             beginning(viewRouter: viewRouter)
+            ContentView(viewRouter: viewRouter)
+                .environment(\.managedObjectContext, persistenceControllerUser.container.viewContext)
+            // ^ added from  https://blckbirds.com/post/core-data-and-swiftui/
         }
     }
 }

@@ -14,6 +14,11 @@ struct ContentView: View {
     @State var username: String = ""
     @State var password: String = ""
     
+    @Environment(\.managedObjectContext) private var viewContext
+    @Environment (\.presentationMode) var presentationMode
+    // ^ line added from https://blckbirds.com/post/core-data-and-swiftui/
+    
+    
     var body: some View {
         
         ZStack(alignment: .topTrailing){
@@ -36,25 +41,47 @@ struct ContentView: View {
                         .font(.custom("Futura", size: 21))
                         .foregroundColor(.gray)
                         .textFieldStyle(RoundedBorderTextFieldStyle())
+                    
                 }
                 HStack {
                     Image(systemName:"lock").foregroundColor(.white)
                         .font(Font.system(size: 35, weight: .bold))
                     
-                    TextField("Password", text: $password)
+                    SecureField("Password", text: $password)
                         .font(.custom("Futura", size: 21))
                         .foregroundColor(.gray)
                         .textFieldStyle(RoundedBorderTextFieldStyle())
                 }
                 
-                Button(action: { viewRouter.currentPage = .tabpage
+                Button(action: {
+                    guard self.username != "" else {return}
+                    guard self.password != "" else {return}
+                    let newUser = User(context: viewContext)
+                    newUser.username = self.username
+                    newUser.password = self.password
+                    do {
+                            try viewContext.save()
+                            print("username saved.")
+                        presentationMode.wrappedValue.dismiss()
+                        } catch {
+                            print(error.localizedDescription)
+                        }
+                    viewRouter.currentPage = .tabpage
                 }) {
+                    
                     Text("Enter")
                         .font(.custom("Futura", size: 22))
                         .padding(8)
                         .background(RoundedRectangle(cornerRadius: 10).stroke(Color.white, lineWidth: 2))
                         .foregroundColor(.white)
                 }.padding()
+/*
+                 guard self.username != "" else {return}
+                 guard self.password != "" else {return}
+                 let newUser = User(context: viewContext)
+                 newUser.username = self.username
+                 newUser.password = self.password
+*/
                 
             } // end of vstack
             .offset(y: 100)
@@ -66,6 +93,9 @@ struct ContentView: View {
 
 struct ContentView_Previews: PreviewProvider {
     static var previews: some View {
-        ContentView(viewRouter: ViewRouter())
+        //ContentView(viewRouter: ViewRouter())
+        ContentView(viewRouter: ViewRouter()).environment(\.managedObjectContext, PersistenceControllerUser.preview.container.viewContext)
+        // ^ added line from https://blckbirds.com/post/core-data-and-swiftui/
     }
 }
+
