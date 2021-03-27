@@ -14,13 +14,7 @@ struct tab: View {
     
     var body: some View {
         TabView(selection: $selection) {
-            TabView {
-                week_stats()
-                month_stats()
-                year_stats()
-        }
-        .tabViewStyle(PageTabViewStyle())
-              .indexViewStyle(PageIndexViewStyle(backgroundDisplayMode: .always))
+            stats()
                 .tabItem {
                     Image(systemName: "waveform.path.ecg.rectangle")
                     Text("Stats")
@@ -63,7 +57,7 @@ struct contacts: View {
                     .font(.custom("Futura", size: 25))
                     .foregroundColor(.white)
                     .padding(.vertical, 10)
-              
+                
             } // end of vstack
         } // enter of zstack
     } // end of view
@@ -93,7 +87,7 @@ extension UITabBarController {
 
 // creating new custom colors
 extension UIColor {
-    static let newpurple = UIColor(red: 177 / 255, green: 82 / 255, blue: 218 / 255, alpha: 45)
+    static let newpurple = UIColor(red: 177 / 255, green: 82 / 255, blue: 218 / 255, alpha: 1)
 }
 
 extension Color {

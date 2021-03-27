@@ -9,7 +9,16 @@ import SwiftUI
 
 struct stats: View {
     var body: some View {
-        Text("Alex's Stats Page")
+        ZStack(){
+            LinearGradient(gradient: .init(colors: [.red,.purple]), startPoint: .top, endPoint: .bottom).edgesIgnoringSafeArea(.all)
+            TabView {
+                week_stats()
+                month_stats()
+                year_stats()
+            }
+            .tabViewStyle(PageTabViewStyle())
+            .indexViewStyle(PageIndexViewStyle(backgroundDisplayMode: .always))
+        }
     }
 }
 
