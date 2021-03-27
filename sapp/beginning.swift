@@ -16,7 +16,7 @@ enum Page {
 struct beginning: View {
     
     @StateObject var viewRouter: ViewRouter
-    @Environment(\.managedObjectContext) private var viewContext
+    //@Environment(\.managedObjectContext) private var viewContext
     var body: some View {
         switch viewRouter.currentPage {
         case .loginpage:
@@ -38,3 +38,5 @@ class ViewRouter: ObservableObject {
     @Published var currentPage: Page = .loginpage
 
 }
+
+

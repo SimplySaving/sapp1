@@ -75,13 +75,6 @@ struct ContentView: View {
                         .background(RoundedRectangle(cornerRadius: 10).stroke(Color.white, lineWidth: 2))
                         .foregroundColor(.white)
                 }.padding()
-/*
-                 guard self.username != "" else {return}
-                 guard self.password != "" else {return}
-                 let newUser = User(context: viewContext)
-                 newUser.username = self.username
-                 newUser.password = self.password
-*/
                 
             } // end of vstack
             .offset(y: 100)
@@ -93,9 +86,10 @@ struct ContentView: View {
 
 struct ContentView_Previews: PreviewProvider {
     static var previews: some View {
-        //ContentView(viewRouter: ViewRouter())
-        ContentView(viewRouter: ViewRouter()).environment(\.managedObjectContext, PersistenceControllerUser.preview.container.viewContext)
+        ContentView(viewRouter: ViewRouter())
+       // ContentView(viewRouter: ViewRouter()).environment(\.managedObjectContext, PersistenceControllerUser.preview.container.viewContext)
         // ^ added line from https://blckbirds.com/post/core-data-and-swiftui/
     }
 }
+
 
