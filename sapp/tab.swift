@@ -14,14 +14,13 @@ struct tab: View {
     
     var body: some View {
         TabView(selection: $selection) {
-//            TabView {
-//            week_stats()
-//            month_stats()
-//            year_stats()
-//        }
-//        .tabViewStyle(PageTabViewStyle())
-//        .indexViewStyle(PageIndexViewStyle(backgroundDisplayMode: .always))
-            stats()
+            TabView {
+                week_stats()
+                month_stats()
+                year_stats()
+        }
+        .tabViewStyle(PageTabViewStyle())
+              .indexViewStyle(PageIndexViewStyle(backgroundDisplayMode: .always))
                 .tabItem {
                     Image(systemName: "waveform.path.ecg.rectangle")
                     Text("Stats")
