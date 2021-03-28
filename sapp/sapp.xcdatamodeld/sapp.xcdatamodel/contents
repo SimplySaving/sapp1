@@ -1,13 +1,14 @@
 <?xml version="1.0" encoding="UTF-8" standalone="yes"?>
 <model type="com.apple.IDECoreDataModeler.DataModel" documentVersion="1.0" lastSavedToolsVersion="17709" systemVersion="20D91" minimumToolsVersion="Automatic" sourceLanguage="Swift" userDefinedModelVersionIdentifier="">
-    <entity name="DailySavings" representedClassName="DailySavings" syncable="YES" codeGenerationType="class">
+    <entity name="DummyDailySavings" representedClassName="DummyDailySavings" syncable="YES" codeGenerationType="class">
         <attribute name="amount" optional="YES" attributeType="Integer 16" defaultValueString="0" usesScalarValueType="YES"/>
-        <attribute name="day" optional="YES" attributeType="Date" usesScalarValueType="NO"/>
-        <attribute name="user" optional="YES" attributeType="String"/>
+        <attribute name="enteredDay" optional="YES" attributeType="Date" usesScalarValueType="NO"/>
+        <attribute name="savingType" optional="YES" attributeType="String"/>
     </entity>
-    <entity name="Friends" representedClassName="Friends" syncable="YES" codeGenerationType="class">
-        <attribute name="user" optional="YES" attributeType="String"/>
+    <entity name="DumyFriends" representedClassName="DumyFriends" syncable="YES" codeGenerationType="class">
+        <attribute name="friendName" optional="YES" attributeType="String"/>
     </entity>
+    <entity name="Entity" representedClassName="Entity" syncable="YES" codeGenerationType="class"/>
     <entity name="User" representedClassName="User" syncable="YES" codeGenerationType="class">
         <attribute name="password" optional="YES" attributeType="String"/>
         <attribute name="username" optional="YES" attributeType="String"/>
@@ -16,8 +17,9 @@
         </fetchedProperty>
     </entity>
     <elements>
-        <element name="User" positionX="-54" positionY="-287.9688110351562" width="128" height="101"/>
-        <element name="Friends" positionX="-279.173828125" positionY="-108.7545776367188" width="128" height="44"/>
-        <element name="DailySavings" positionX="82.8209228515625" positionY="-108.271728515625" width="128" height="74"/>
+        <element name="DummyDailySavings" positionX="82.8209228515625" positionY="-108.271728515625" width="128" height="74"/>
+        <element name="DumyFriends" positionX="-279.173828125" positionY="-108.7545776367188" width="128" height="44"/>
+        <element name="User" positionX="-54" positionY="-287.9688110351562" width="128" height="80"/>
+        <element name="Entity" positionX="-99" positionY="-180" width="128" height="29"/>
     </elements>
 </model>

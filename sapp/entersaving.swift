@@ -6,12 +6,14 @@
 //
 //
 import SwiftUI
+import CoreData
 
 // ObservableObjects can be tracked through multiple views
 class Amount: ObservableObject{
     @Published var input = ""
     @Published var destination = ""
 }
+
 
 struct entersaving: View {
     // to bind tabs
@@ -91,12 +93,15 @@ struct entersaving: View {
             } // end of zstack
         } // end of navigationview
     } // end of body
+    
+    
+
 }
 
 struct secondView: View {
     @Environment(\.presentationMode) var presentationMode: Binding<PresentationMode>
-    
-    @ObservedObject  var amount = Amount()
+    @Environment(\.managedObjectContext) private var viewContext
+    @ObservedObject var amount = Amount()
     
     var btnBack : some View { Button(action: {
         self.presentationMode.wrappedValue.dismiss()
@@ -106,6 +111,22 @@ struct secondView: View {
                 .foregroundColor(.white)
         }
     }
+    }
+    func getSaved(){
+        let myInt1 = Int16(amount.input) ?? 0
+        //guard self.amount != Int($0) else {return}
+        let newAmount = DummyDailySavings()
+        newAmount.amount = myInt1
+        newAmount.savingType = amount.destination
+        newAmount.enteredDay = Date()
+        do {
+                try viewContext.save()
+                print("username saved.")
+            presentationMode.wrappedValue.dismiss()
+            } catch {
+                print("ERROR")
+                print(error.localizedDescription)
+            }
     }
     
     var body: some View {

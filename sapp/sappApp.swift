@@ -17,7 +17,7 @@ struct sappApp: App {
     @StateObject var viewRouter = ViewRouter()
     
     let persistentContainer: NSPersistentContainer = {
-        let container = NSPersistentContainer(name: "MyApplication")
+        let container = NSPersistentContainer(name: "sapp")
         container.loadPersistentStores(completionHandler: { (storeDescription, error) in
             if let error = error as NSError? {
                 fatalError("Unresolved error \(error), \(error.userInfo)")
@@ -37,7 +37,7 @@ struct sappApp: App {
 
 class PersistenceManager {
   let persistentContainer: NSPersistentContainer = {
-      let container = NSPersistentContainer(name: "MyApplication")
+      let container = NSPersistentContainer(name: "sapp")
       container.loadPersistentStores(completionHandler: { (storeDescription, error) in
           if let error = error as NSError? {
               fatalError("Unresolved error \(error), \(error.userInfo)")

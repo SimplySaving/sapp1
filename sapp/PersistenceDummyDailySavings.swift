@@ -7,16 +7,17 @@
 
 import CoreData
 
-struct PersistenceControllerUser {
-    static let shared = PersistenceControllerUser()
+struct PersistenceControllerDummyDailySavings {
+    static let shared = PersistenceControllerDummyDailySavings()
 
-    static var preview: PersistenceControllerUser = {
-        let result = PersistenceControllerUser(inMemory: true)
+    static var preview: PersistenceControllerDummyDailySavings = {
+        let result = PersistenceControllerDummyDailySavings(inMemory: true)
         let viewContext = result.container.viewContext
         for _ in 0..<10 {
-            let newItem = User(context: viewContext)
-            newItem.username = ""
-            newItem.password = ""
+            let newItem = DummyDailySavings(context: viewContext)
+            newItem.amount = 0
+            newItem.savingType = ""
+            //newItem.enteredDay = Date? = nil
         }
         do {
             try viewContext.save()
