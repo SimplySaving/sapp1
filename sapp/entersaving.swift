@@ -102,6 +102,7 @@ struct secondView: View {
     @Environment(\.presentationMode) var presentationMode: Binding<PresentationMode>
     @Environment(\.managedObjectContext) private var viewContext
     @ObservedObject var amount = Amount()
+    @State private var isShareSheetShowing = false
     
     var btnBack : some View { Button(action: {
         self.presentationMode.wrappedValue.dismiss()
@@ -143,6 +144,7 @@ struct secondView: View {
                 
                 // to do: implement Twitter API to connect app
                 Button(action: {
+                    shareButton()
                 }) {
                     Text("Share on Twitter")
                         .font(.custom("Futura", size: 25))
@@ -157,6 +159,17 @@ struct secondView: View {
         } // end of zstack
         .navigationBarBackButtonHidden(true)
         .navigationBarItems(leading: btnBack)
+    }
+    func shareButton() {
+        isShareSheetShowing.toggle()
+        let shareText = "I just saved $\(amount.input) towards my \(amount.destination) on the SimplySaving app!"
+        
+        let vc = UIActivityViewController(activityItems: [shareText], applicationActivities: [])
+        vc.excludedActivityTypes = [ UIActivity.ActivityType.airDrop, UIActivity.ActivityType.postToFacebook ]
+        
+        UIApplication.shared.windows.first?.rootViewController!.present(vc, animated: true, completion: nil)
+        
+        
     }
 }
 
