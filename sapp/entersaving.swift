@@ -153,6 +153,14 @@ struct secondView: View {
                         .cornerRadius(10)
                         .foregroundColor(.white)
                 }
+                
+                Text("Or Visit Twitter")
+                    .onTapGesture {
+                        UIApplication.shared.open(URL(string: "https://twitter.com")!, options: [:])
+                    }
+                    .font(.custom("Futura", size: 20))
+                    .foregroundColor(.white)
+
             } // end of vstack
             .padding(.horizontal, 25)
             .offset(y: 100)
