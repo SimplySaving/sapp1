@@ -10,32 +10,29 @@ import SwiftUI
 
 struct year_stats: View {
     var body: some View {
-        ZStack(alignment: .topTrailing){
+        ZStack(){
             
             LinearGradient(gradient: .init(colors: [.red,.purple]), startPoint: .top, endPoint: .bottom).edgesIgnoringSafeArea(.all)
             VStack {
-                Spacer()
-                LineChartView(data: [1, 2, 3], title: "Savings Progress")
-                    .padding(.trailing, 60)
-                Spacer()
+                //Spacer()
                 //Bar Chart
                 BarChartView(data: ChartData(values: [
-                    ("Jan", 1),
-                    ("Feb", 2),
-                    ("Mar", 3),
-                    ("Apr", 4),
-                    ("May", 5),
-                    ("June",5),
-                    ("Jul", 5),
-                    ("Aug", 5),
-                    ("Sep", 5),
-                    ("Oct", 5),
-                    ("Nov", 5),
-                    ("Dec", 5),
+                    ("Jan", 444),
+                    ("Feb", 888),
+                    ("Mar", 232),
+                    ("Apr", 423),
+                    ("May", 906),
+                    ("June",412),
+                    ("Jul", 123),
+                    ("Aug", 432),
+                    ("Sep", 321),
+                    ("Oct", 232),
+                    ("Nov", 423),
+                    ("Dec", 324),
                     ]),
-                    title:"bar chart")
-                .padding(.trailing, 60)
-                Spacer()
+                    title:"Savings Chart")
+                //.padding(.trailing, 60)
+                //Spacer()
             }
         }
     }

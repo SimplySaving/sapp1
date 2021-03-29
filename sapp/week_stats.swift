@@ -10,26 +10,22 @@ import SwiftUICharts
 
 struct week_stats: View {
     var body: some View {
-        ZStack(alignment: .topTrailing){
-            
+        ZStack{
             LinearGradient(gradient: .init(colors: [.red,.purple]), startPoint: .top, endPoint: .bottom).edgesIgnoringSafeArea(.all)
             VStack {
                 Spacer()
-                LineChartView(data: [1, 2, 3], title: "Savings Progress")
-                    .padding(.trailing, 60)
-                Spacer()
                 //Bar Chart
                 BarChartView(data: ChartData(values: [
-                    ("Day 1", 1),
-                    ("Day 2", 2),
+                    ("Day 1", 10),
+                    ("Day 2", 10),
                     ("Day 3", 3),
                     ("Day 4", 4),
-                    ("Day 5", 5),
-                    ("Day 6",5),
-                    ("Day 7", 5),
+                    ("Day 5", 2),
+                    ("Day 6", 9),
+                    ("Day 7", 3),
                     ]),
-                    title:"bar chart")
-                .padding(.trailing, 60)
+                    title:"Savings Chart")
+                //.padding(.trailing, 60)
                 Spacer()
             }
         }
