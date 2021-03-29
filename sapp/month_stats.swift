@@ -22,7 +22,7 @@ struct month_stats: View {
                     ("Week 3", 90),
                     ("Week 4", 40),
                     ]),
-                    title:"Savings Chart")
+                    title:"Monthly Savings")
                 //.padding(.trailing, 60)
                 Spacer()
             }

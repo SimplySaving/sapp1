@@ -30,7 +30,7 @@ struct year_stats: View {
                     ("Nov", 423),
                     ("Dec", 324),
                     ]),
-                    title:"Savings Chart")
+                    title:"Yearly Savings")
                 //.padding(.trailing, 60)
                 //Spacer()
             }

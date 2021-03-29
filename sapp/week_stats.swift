@@ -16,15 +16,15 @@ struct week_stats: View {
                 Spacer()
                 //Bar Chart
                 BarChartView(data: ChartData(values: [
-                    ("Day 1", 10),
-                    ("Day 2", 10),
-                    ("Day 3", 3),
-                    ("Day 4", 4),
-                    ("Day 5", 2),
-                    ("Day 6", 9),
-                    ("Day 7", 3),
+                    ("Monday", 10),
+                    ("Tuesday", 10),
+                    ("Wednesday", 3),
+                    ("Thursday", 4),
+                    ("Friday", 2),
+                    ("Saturday", 9),
+                    ("Sunday", 3),
                     ]),
-                    title:"Savings Chart")
+                    title:"Weekly Savings")
                 //.padding(.trailing, 60)
                 Spacer()
             }
