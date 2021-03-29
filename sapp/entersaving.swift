@@ -96,7 +96,6 @@ struct entersaving: View {
                     // performs action + navigating to another view
                     .simultaneousGesture(TapGesture().onEnded{
                         saveAmount()
-                        self.presentationMode.wrappedValue.dismiss()
                     })
                 }.padding(.horizontal, 25)
                 .onTapGesture {
@@ -137,6 +136,7 @@ struct secondView: View{
     @State private var isShareSheetShowing = false
     
     var btnBack : some View { Button(action: {
+        self.presentationMode.wrappedValue.dismiss()
     }) {
         HStack {
             Image(systemName: "arrowshape.turn.up.left.fill") .font(.system(size: 35))
