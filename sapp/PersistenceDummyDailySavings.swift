@@ -15,9 +15,9 @@ struct PersistenceControllerDummyDailySavings {
         let viewContext = result.container.viewContext
         for _ in 0..<10 {
             let newItem = DummyDailySavings(context: viewContext)
-            newItem.amount = 0
+            newItem.amount = Int16(0)
             newItem.savingType = ""
-            //newItem.enteredDay = Date? = nil
+            newItem.enteredDay = Date()
         }
         do {
             try viewContext.save()

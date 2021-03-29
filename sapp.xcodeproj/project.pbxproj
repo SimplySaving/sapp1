@@ -78,9 +78,9 @@
 				2D3EC9EF25FC49F10048717A /* ContentView.swift */,
 				6845F45A260282DD000F59E7 /* entersaving.swift */,
 				2D73C372260FC6DA008A639E /* PersistenceUser.swift */,
+				2D73C37826103517008A639E /* PersistenceDummyDailySavings.swift */,
 				68DB949D260B162B00617340 /* beginning.swift */,
 				68ACCD582609517800DDC88D /* stats.swift */,
-				2D73C37826103517008A639E /* PersistenceDummyDailySavings.swift */,
 				68CFD27E260542E000BE28D0 /* tab.swift */,
 				2DF11D0F260EFBB000D52BEF /* month_stats.swift */,
 				2DF11D15260EFC4200D52BEF /* sapp.xcdatamodeld */,
@@ -317,7 +317,7 @@
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_ASSET_PATHS = "\"sapp/Preview Content\"";
-				DEVELOPMENT_TEAM = "";
+				DEVELOPMENT_TEAM = A75LTA95M6;
 				ENABLE_PREVIEWS = YES;
 				INFOPLIST_FILE = sapp/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 14.0;
@@ -325,7 +325,7 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				PRODUCT_BUNDLE_IDENTIFIER = Hackathon.sapp;
+				PRODUCT_BUNDLE_IDENTIFIER = CitizensHackathon.sapp;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
@@ -339,7 +339,7 @@
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_ASSET_PATHS = "\"sapp/Preview Content\"";
-				DEVELOPMENT_TEAM = "";
+				DEVELOPMENT_TEAM = A75LTA95M6;
 				ENABLE_PREVIEWS = YES;
 				INFOPLIST_FILE = sapp/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 14.0;
@@ -347,7 +347,7 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				PRODUCT_BUNDLE_IDENTIFIER = Hackathon.sapp;
+				PRODUCT_BUNDLE_IDENTIFIER = CitizensHackathon.sapp;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2";

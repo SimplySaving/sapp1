@@ -7,6 +7,7 @@
 //
 import SwiftUI
 import CoreData
+import UIKit
 
 // ObservableObjects can be tracked through multiple views
 class Amount: ObservableObject{
@@ -16,10 +17,15 @@ class Amount: ObservableObject{
 
 
 struct entersaving: View {
+    
     // to bind tabs
     @Binding var selection: Int
     // access output through this variable
     @ObservedObject var amount = Amount()
+    @Environment(\.presentationMode) var presentationMode: Binding<PresentationMode>
+    @Environment(\.managedObjectContext) private var viewContext
+    
+
     
     var body: some View {
         // a Zstack allows for images to be stacked
@@ -40,7 +46,10 @@ struct entersaving: View {
                         Image(systemName:"dollarsign.circle").foregroundColor(.green)
                             .font(Font.system(size: 35, weight: .bold))
                         
-                        TextField("Amount", text: $amount.input)
+                        TextField("Amount", text: $amount.input, onCommit: {
+                                                    self.endTextEditing()
+                                                })
+                        
                             .font(.custom("Futura", size: 21))
                             .foregroundColor(.gray)
                             .textFieldStyle(RoundedBorderTextFieldStyle())
@@ -77,7 +86,8 @@ struct entersaving: View {
                         }
                     } // end of vstack
                     
-                    NavigationLink(destination: secondView(amount: amount)) {
+                    NavigationLink(
+                        destination: secondView(amount: amount)) {
                         Text("Enter")
                             .font(.custom("Futura", size: 30))
                             .padding(.horizontal, 20)
@@ -85,12 +95,17 @@ struct entersaving: View {
                             .background(RoundedRectangle(cornerRadius: 10).stroke(Color.white, lineWidth: 2))
                             .foregroundColor(.white)
                     }.padding(.vertical, 15)
+                    
                 }.padding(.horizontal, 25)
                 .onTapGesture {
                     selection = 2
                 }
                 .offset(y: 95)
+
             } // end of zstack
+            .onTapGesture {
+                                    self.endTextEditing()
+                                }
         } // end of navigationview
     } // end of body
     
@@ -98,13 +113,14 @@ struct entersaving: View {
 
 }
 
-struct secondView: View {
+struct secondView: View{
     @Environment(\.presentationMode) var presentationMode: Binding<PresentationMode>
     @Environment(\.managedObjectContext) private var viewContext
     @ObservedObject var amount = Amount()
     @State private var isShareSheetShowing = false
     
     var btnBack : some View { Button(action: {
+        saveAmount()
         self.presentationMode.wrappedValue.dismiss()
     }) {
         HStack {
@@ -113,22 +129,9 @@ struct secondView: View {
         }
     }
     }
-    func getSaved(){
-        let myInt1 = Int16(amount.input) ?? 0
-        //guard self.amount != Int($0) else {return}
-        let newAmount = DummyDailySavings()
-        newAmount.amount = myInt1
-        newAmount.savingType = amount.destination
-        newAmount.enteredDay = Date()
-        do {
-                try viewContext.save()
-                print("username saved.")
-            presentationMode.wrappedValue.dismiss()
-            } catch {
-                print("ERROR")
-                print(error.localizedDescription)
-            }
-    }
+    
+
+    
     
     var body: some View {
         ZStack(alignment: .topTrailing){
@@ -177,6 +180,21 @@ struct secondView: View {
         
         UIApplication.shared.windows.first?.rootViewController!.present(vc, animated: true, completion: nil)
         
+    }
+    func saveAmount(){
+        let myInt1 = Int16(amount.input) ?? Int16(0)
+        //guard self.amount != Int($0) else {return}
+        let newAmount = DummyDailySavings(context: viewContext)
+        newAmount.amount = myInt1
+        newAmount.savingType = amount.destination
+        newAmount.enteredDay = Date()
+        do {
+                try viewContext.save()
+                print("value saved.")
+            presentationMode.wrappedValue.dismiss()
+            } catch {
+                print(error.localizedDescription)
+            }
         
     }
 }
@@ -185,4 +203,11 @@ struct entersaving_Previews: PreviewProvider {
     static var previews: some View {
         entersaving(selection: .constant(1))
     }
+}
+
+extension View {
+  func endTextEditing() {
+    UIApplication.shared.sendAction(#selector(UIResponder.resignFirstResponder),
+                                    to: nil, from: nil, for: nil)
+  }
 }
