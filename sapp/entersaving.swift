@@ -9,12 +9,12 @@ import SwiftUI
 import CoreData
 import UIKit
 
+
 // ObservableObjects can be tracked through multiple views
 class Amount: ObservableObject{
     @Published var input = ""
     @Published var destination = ""
 }
-
 
 struct entersaving: View {
     
@@ -24,8 +24,6 @@ struct entersaving: View {
     @ObservedObject var amount = Amount()
     @Environment(\.presentationMode) var presentationMode: Binding<PresentationMode>
     @Environment(\.managedObjectContext) private var viewContext
-    
-
     
     var body: some View {
         // a Zstack allows for images to be stacked
@@ -47,13 +45,13 @@ struct entersaving: View {
                             .font(Font.system(size: 35, weight: .bold))
                         
                         TextField("Amount", text: $amount.input, onCommit: {
-                                                    self.endTextEditing()
-                                                })
+                            self.endTextEditing()
+                        })
                         
-                            .font(.custom("Futura", size: 21))
-                            .foregroundColor(.gray)
-                            .textFieldStyle(RoundedBorderTextFieldStyle())
-                            .keyboardType(.numberPad)
+                        .font(.custom("Futura", size: 21))
+                        .foregroundColor(.gray)
+                        .textFieldStyle(RoundedBorderTextFieldStyle())
+                        .keyboardType(.numberPad)
                     }
                     HStack(spacing: 5) {
                         Image(systemName:"questionmark.folder").foregroundColor(.green)
@@ -95,22 +93,41 @@ struct entersaving: View {
                             .background(RoundedRectangle(cornerRadius: 10).stroke(Color.white, lineWidth: 2))
                             .foregroundColor(.white)
                     }.padding(.vertical, 15)
-                    
+                    // performs action + navigating to another view
+                    .simultaneousGesture(TapGesture().onEnded{
+                        saveAmount()
+                        self.presentationMode.wrappedValue.dismiss()
+                    })
                 }.padding(.horizontal, 25)
                 .onTapGesture {
                     selection = 2
                 }
-                .offset(y: 95)
-
+                .offset(y: 75)
             } // end of zstack
             .onTapGesture {
-                                    self.endTextEditing()
-                                }
+                self.endTextEditing()
+            }
+            
         } // end of navigationview
+        
     } // end of body
     
-    
-
+    // this function updates variable Amount in core data
+    func saveAmount(){
+        let myInt1 = Int16(amount.input) ?? Int16(0)
+        //guard self.amount != Int($0) else {return}
+        let newAmount = DummyDailySavings(context: viewContext)
+        newAmount.amount = myInt1
+        newAmount.savingType = amount.destination
+        newAmount.enteredDay = Date()
+        do {
+            try viewContext.save()
+            print("value saved.")
+            presentationMode.wrappedValue.dismiss()
+        } catch {
+            print(error.localizedDescription)
+        }
+    }
 }
 
 struct secondView: View{
@@ -120,8 +137,6 @@ struct secondView: View{
     @State private var isShareSheetShowing = false
     
     var btnBack : some View { Button(action: {
-        saveAmount()
-        self.presentationMode.wrappedValue.dismiss()
     }) {
         HStack {
             Image(systemName: "arrowshape.turn.up.left.fill") .font(.system(size: 35))
@@ -129,9 +144,6 @@ struct secondView: View{
         }
     }
     }
-    
-
-    
     
     var body: some View {
         ZStack(alignment: .topTrailing){
@@ -163,14 +175,16 @@ struct secondView: View{
                     }
                     .font(.custom("Futura", size: 20))
                     .foregroundColor(.white)
-
+                
             } // end of vstack
             .padding(.horizontal, 25)
-            .offset(y: 100)
+            .offset(y: 90)
         } // end of zstack
         .navigationBarBackButtonHidden(true)
         .navigationBarItems(leading: btnBack)
     }
+    
+    // this function enables Twitter sharing
     func shareButton() {
         isShareSheetShowing.toggle()
         let shareText = "I just saved $\(amount.input) towards my \(amount.destination) on the SimplySaving app!"
@@ -179,23 +193,6 @@ struct secondView: View{
         vc.excludedActivityTypes = [ UIActivity.ActivityType.airDrop, UIActivity.ActivityType.postToFacebook ]
         
         UIApplication.shared.windows.first?.rootViewController!.present(vc, animated: true, completion: nil)
-        
-    }
-    func saveAmount(){
-        let myInt1 = Int16(amount.input) ?? Int16(0)
-        //guard self.amount != Int($0) else {return}
-        let newAmount = DummyDailySavings(context: viewContext)
-        newAmount.amount = myInt1
-        newAmount.savingType = amount.destination
-        newAmount.enteredDay = Date()
-        do {
-                try viewContext.save()
-                print("value saved.")
-            presentationMode.wrappedValue.dismiss()
-            } catch {
-                print(error.localizedDescription)
-            }
-        
     }
 }
 
@@ -205,9 +202,10 @@ struct entersaving_Previews: PreviewProvider {
     }
 }
 
+// this allows keyboard to be hidden when clicked elsewhere
 extension View {
-  func endTextEditing() {
-    UIApplication.shared.sendAction(#selector(UIResponder.resignFirstResponder),
-                                    to: nil, from: nil, for: nil)
-  }
+    func endTextEditing() {
+        UIApplication.shared.sendAction(#selector(UIResponder.resignFirstResponder),
+                                        to: nil, from: nil, for: nil)
+    }
 }
