@@ -4,15 +4,19 @@
 //
 //  Created by Sofya Chow on 3/19/21.
 //
-//
+// tab.swift contains customizations of the tab bar as well as navigation
+// capabilities to certain views using TabView
+
 import SwiftUI
 import UIKit
 
 struct tab: View {
+    
     @StateObject var viewRouter: ViewRouter
     @State var selection = 1
     
     var body: some View {
+        
         TabView(selection: $selection) {
             stats()
                 .tabItem {
@@ -44,11 +48,16 @@ struct tab_Previews: PreviewProvider {
     }
 }
 
+// contains the Contact tab view
+// to do: Link Users with friends
 struct contacts: View {
+    
     @Binding var selection: Int
     
     var body: some View {
+        
         ZStack(alignment: .center){
+            
             LinearGradient(gradient: .init(colors: [.red,.purple]), startPoint: .top, endPoint: .bottom).edgesIgnoringSafeArea(.all)
             
             VStack(spacing: 10) {
@@ -58,9 +67,9 @@ struct contacts: View {
                     .foregroundColor(.white)
                     .padding(.vertical, 10)
                 
-            } // end of vstack
-        } // enter of zstack
-    } // end of view
+            } // end of VStack
+        } // enter of ZStack
+    } // end of body
 }
 
 struct contacts_Previews: PreviewProvider {
@@ -85,7 +94,7 @@ extension UITabBarController {
     }
 }
 
-// creating new custom colors
+// creating custom colors
 extension UIColor {
     static let newpurple = UIColor(red: 177 / 255, green: 82 / 255, blue: 218 / 255, alpha: 1)
 }

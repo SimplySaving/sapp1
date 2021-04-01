@@ -4,18 +4,17 @@
 //
 //  Created by Alexandra Mai on 3/12/21.
 //
-//
+// sappApp.swift boots up the initial view of beginning.swift
+
 import SwiftUI
 import CoreData
 
-
 @main
 struct sappApp: App {
-    let persistenceControllerUser = PersistenceControllerUser.shared
-    // ^ added from  https://blckbirds.com/post/core-data-and-swiftui/
-
+    
     @StateObject var viewRouter = ViewRouter()
     
+    let persistenceControllerUser = PersistenceControllerUser.shared
     let persistentContainer: NSPersistentContainer = {
         let container = NSPersistentContainer(name: "sapp")
         container.loadPersistentStores(completionHandler: { (storeDescription, error) in
@@ -28,9 +27,9 @@ struct sappApp: App {
 
     var body: some Scene {
         WindowGroup {
+            // the beginning view will be initiated
             beginning(viewRouter: viewRouter)
                 .environment(\.managedObjectContext, persistenceControllerUser.container.viewContext)
-            // ^ added from  https://blckbirds.com/post/core-data-and-swiftui/
         }
     }
 }

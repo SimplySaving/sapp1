@@ -4,14 +4,18 @@
 //
 //  Created by Sofya Chow on 3/17/21.
 //
-//
+// entersaving.swift allows users to track their spending here
+// and share the results to twitter
+
 import SwiftUI
 import CoreData
 import UIKit
 
-
-// ObservableObjects can be tracked through multiple views
+// ObservableObjects can be tracked throughout multiple views
 class Amount: ObservableObject{
+    // has the input member of $xx amount,
+    // while the destination holds the categories of
+    // savings, loans and investments
     @Published var input = ""
     @Published var destination = ""
 }
@@ -20,39 +24,39 @@ struct entersaving: View {
     
     // to bind tabs
     @Binding var selection: Int
-    // access output through this variable
     @ObservedObject var amount = Amount()
+    
     @Environment(\.presentationMode) var presentationMode: Binding<PresentationMode>
     @Environment(\.managedObjectContext) private var viewContext
     
     var body: some View {
-        // a Zstack allows for images to be stacked
-        // front and back view
+        
+        // NavigationView changes view upon action, with the option to return to
+        // the previous view
         NavigationView {
             ZStack(alignment: .topTrailing){
+                
                 LinearGradient(gradient: .init(colors: [.red,.purple]), startPoint: .top, endPoint: .bottom).edgesIgnoringSafeArea(.all)
                 
-                // a Vstack will display top to bottom
                 VStack(spacing: 10) {
                     Text("Please enter the amount you just saved and its location:")
                         .multilineTextAlignment(.center)
                         .font(.custom("Futura", size: 25))
                         .foregroundColor(.white)
                         .padding(.vertical, 10)
+                    
                     HStack {
-                        //tag
                         Image(systemName:"dollarsign.circle").foregroundColor(.green)
                             .font(Font.system(size: 35, weight: .bold))
-                        
                         TextField("Amount", text: $amount.input, onCommit: {
                             self.endTextEditing()
                         })
-                        
                         .font(.custom("Futura", size: 21))
                         .foregroundColor(.gray)
                         .textFieldStyle(RoundedBorderTextFieldStyle())
                         .keyboardType(.numberPad)
                     }
+                    
                     HStack(spacing: 5) {
                         Image(systemName:"questionmark.folder").foregroundColor(.green)
                             .font(Font.system(size: 33, weight: .bold))
@@ -82,7 +86,7 @@ struct entersaving: View {
                                 .textFieldStyle(RoundedBorderTextFieldStyle())
                                 .keyboardType(.numberPad)
                         }
-                    } // end of vstack
+                    } // end of VStack
                     
                     NavigationLink(
                         destination: secondView(amount: amount)) {
@@ -93,7 +97,7 @@ struct entersaving: View {
                             .background(RoundedRectangle(cornerRadius: 10).stroke(Color.white, lineWidth: 2))
                             .foregroundColor(.white)
                     }.padding(.vertical, 15)
-                    // performs action + navigating to another view
+                    // performs both action and navigation
                     .simultaneousGesture(TapGesture().onEnded{
                         saveAmount()
                     })
@@ -106,12 +110,10 @@ struct entersaving: View {
             .onTapGesture {
                 self.endTextEditing()
             }
-            
         } // end of navigationview
-        
     } // end of body
     
-    // this function updates variable Amount in core data
+    // this function saves Amount entity in Core Data
     func saveAmount(){
         let myInt1 = Int16(amount.input) ?? Int16(0)
         //guard self.amount != Int($0) else {return}
@@ -129,12 +131,16 @@ struct entersaving: View {
     }
 }
 
+// the secondView contains the Congratulatory message and the option to reshare
 struct secondView: View{
-    @Environment(\.presentationMode) var presentationMode: Binding<PresentationMode>
-    @Environment(\.managedObjectContext) private var viewContext
+    
     @ObservedObject var amount = Amount()
     @State private var isShareSheetShowing = false
     
+    @Environment(\.presentationMode) var presentationMode: Binding<PresentationMode>
+    @Environment(\.managedObjectContext) private var viewContext
+
+    // customization of the back button on navigation bar
     var btnBack : some View { Button(action: {
         self.presentationMode.wrappedValue.dismiss()
     }) {
@@ -146,10 +152,11 @@ struct secondView: View{
     }
     
     var body: some View {
+        
         ZStack(alignment: .topTrailing){
+            
             LinearGradient(gradient: .init(colors: [.red,.purple]), startPoint: .top, endPoint: .bottom).edgesIgnoringSafeArea(.all)
             
-            // a Vstack will display top to bottom
             VStack(spacing: 10) {
                 Text("Congratulations! You just saved $\(amount.input) towards your \(amount.destination)!")
                     .multilineTextAlignment(.center)
@@ -157,7 +164,6 @@ struct secondView: View{
                     .foregroundColor(.white)
                     .padding(.vertical, 30)
                 
-                // to do: implement Twitter API to connect app
                 Button(action: {
                     shareButton()
                 }) {
@@ -176,9 +182,10 @@ struct secondView: View{
                     .font(.custom("Futura", size: 20))
                     .foregroundColor(.white)
                 
-            } // end of vstack
+            } // end of VStack
             .padding(.horizontal, 25)
             .offset(y: 90)
+            
         } // end of zstack
         .navigationBarBackButtonHidden(true)
         .navigationBarItems(leading: btnBack)

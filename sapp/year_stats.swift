@@ -14,7 +14,6 @@ struct year_stats: View {
             
             LinearGradient(gradient: .init(colors: [.red,.purple]), startPoint: .top, endPoint: .bottom).edgesIgnoringSafeArea(.all)
             VStack {
-                //Spacer()
                 //Bar Chart
                 BarChartView(data: ChartData(values: [
                     ("Jan", 444),
@@ -31,8 +30,6 @@ struct year_stats: View {
                     ("Dec", 324),
                     ]),
                     title:"Yearly Savings")
-                //.padding(.trailing, 60)
-                //Spacer()
             }
         }
     }

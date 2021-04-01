@@ -25,7 +25,6 @@ struct week_stats: View {
                     ("Sunday", 3),
                     ]),
                     title:"Weekly Savings")
-                //.padding(.trailing, 60)
                 Spacer()
             }
         }
