@@ -9,12 +9,24 @@
 
 import SwiftUI
 
+struct Person: Codable {
+    let username1: String
+    let password2: String
+    
+    init (username1: String, password2: String) {
+        self.username1 = username1
+        self.password2 = password2
+    }
+}
+
 struct ContentView: View {
     
     @StateObject var viewRouter: ViewRouter
     @State var showLoginView: Bool = false
     @State var username: String = ""
     @State var password: String = ""
+    //    @State var username = Person(username1: "", password2: "")
+    //    @State var user = Person()
     
     @Environment(\.managedObjectContext) private var viewContext
     @Environment (\.presentationMode) var presentationMode
@@ -64,19 +76,8 @@ struct ContentView: View {
                 }
                 
                 Button(action: {
-                    // saving username and password to Core Data
-                    guard self.username != "" else {return}
-                    guard self.password != "" else {return}
-                    let newUser = User(context: viewContext)
-                    newUser.username = self.username
-                    newUser.password = self.password
-                    do {
-                            try viewContext.save()
-                            print("username saved.")
-                        presentationMode.wrappedValue.dismiss()
-                        } catch {
-                            print(error.localizedDescription)
-                        }
+                    // let person = Person(username1: "hello", password2: "hello")
+                    self.sendData()
                     // once the Enter button is hit, the view shall
                     // navigate to the Tab page
                     viewRouter.currentPage = .tabpage
@@ -95,6 +96,44 @@ struct ContentView: View {
             
         } // end of ZStack
     } // end of body
+    
+    // function to send data over internet
+    func sendData() {
+        
+        // preparing JSON data for upload
+        let person = Person(username1: username, password2: password)
+        guard let uploadData = try? JSONEncoder().encode(person) else {
+            print("Failed to encode person")
+            return
+        }
+        
+        // configuring a URL request
+        let url = URL(string: "https://simplysaving.000webhostapp.com/index.php")!
+        var request = URLRequest(url: url)
+        request.setValue("application/json", forHTTPHeaderField: "Content-Type")
+        request.httpMethod = "POST"
+        request.httpBody = uploadData
+        
+        // starting an upload tast
+        let task = URLSession.shared.uploadTask(with: request, from: uploadData) { data, response, error in
+            if let error = error {
+                print ("error: \(error)")
+                return
+            }
+            guard let response = response as? HTTPURLResponse,
+                (200...299).contains(response.statusCode) else {
+                print ("server error")
+                return
+            }
+            if let mimeType = response.mimeType,
+                mimeType == "application/json",
+                let data = data,
+                let dataString = String(data: data, encoding: .utf8) {
+                print ("got data: \(dataString)")
+            }
+        }
+        task.resume()
+    }
 }
 
 struct ContentView_Previews: PreviewProvider {

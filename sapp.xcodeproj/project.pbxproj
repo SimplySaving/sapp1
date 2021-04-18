@@ -19,6 +19,7 @@
 		2DF11D17260EFC4200D52BEF /* sapp.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 2DF11D15260EFC4200D52BEF /* sapp.xcdatamodeld */; };
 		2DF11D1B260EFC8400D52BEF /* SwiftUICharts in Frameworks */ = {isa = PBXBuildFile; productRef = 2DF11D1A260EFC8400D52BEF /* SwiftUICharts */; };
 		6845F45B260282DD000F59E7 /* entersaving.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6845F45A260282DD000F59E7 /* entersaving.swift */; };
+		68A3B4582622B0CE0074555B /* index.php in Resources */ = {isa = PBXBuildFile; fileRef = 68A3B4572622B0CE0074555B /* index.php */; };
 		68ACCD592609517800DDC88D /* stats.swift in Sources */ = {isa = PBXBuildFile; fileRef = 68ACCD582609517800DDC88D /* stats.swift */; };
 		68CFD27F260542E000BE28D0 /* tab.swift in Sources */ = {isa = PBXBuildFile; fileRef = 68CFD27E260542E000BE28D0 /* tab.swift */; };
 		68DB949E260B162B00617340 /* beginning.swift in Sources */ = {isa = PBXBuildFile; fileRef = 68DB949D260B162B00617340 /* beginning.swift */; };
@@ -38,6 +39,7 @@
 		2DF11D0F260EFBB000D52BEF /* month_stats.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = month_stats.swift; sourceTree = "<group>"; };
 		2DF11D16260EFC4200D52BEF /* sapp.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = sapp.xcdatamodel; sourceTree = "<group>"; };
 		6845F45A260282DD000F59E7 /* entersaving.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = entersaving.swift; sourceTree = "<group>"; };
+		68A3B4572622B0CE0074555B /* index.php */ = {isa = PBXFileReference; lastKnownFileType = text.script.php; path = index.php; sourceTree = "<group>"; };
 		68ACCD582609517800DDC88D /* stats.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = stats.swift; sourceTree = "<group>"; };
 		68CFD27E260542E000BE28D0 /* tab.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = tab.swift; sourceTree = "<group>"; };
 		68DB949D260B162B00617340 /* beginning.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = beginning.swift; sourceTree = "<group>"; };
@@ -75,6 +77,7 @@
 			isa = PBXGroup;
 			children = (
 				2D3EC9ED25FC49F10048717A /* sappApp.swift */,
+				68A3B4572622B0CE0074555B /* index.php */,
 				2D3EC9EF25FC49F10048717A /* ContentView.swift */,
 				6845F45A260282DD000F59E7 /* entersaving.swift */,
 				2D73C372260FC6DA008A639E /* PersistenceUser.swift */,
@@ -166,6 +169,7 @@
 			files = (
 				2D3EC9F525FC49F30048717A /* Preview Assets.xcassets in Resources */,
 				2D3EC9F225FC49F30048717A /* Assets.xcassets in Resources */,
+				68A3B4582622B0CE0074555B /* index.php in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
