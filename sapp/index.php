@@ -5,7 +5,8 @@
 //Receiving JSON POST with PHP
 
 // Read the input stream
-$body = file_get_contents("php://input");
+// php://input
+$body = file_get_contents("https://simplysaving.000webhostapp.com");
  
 // Decode the JSON object
 $object = json_decode($body, true);
@@ -39,3 +40,4 @@ if ($conn->connect_error) {
 
 // Close connections
 mysqli_close($con);
+?>

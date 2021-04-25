@@ -98,6 +98,7 @@ struct ContentView: View {
     } // end of body
     
     // function to send data over internet
+    // post data from your app to servers
     func sendData() {
         
         // preparing JSON data for upload
